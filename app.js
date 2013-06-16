@@ -106,18 +106,19 @@ var BlobSnot = function(game, settings){
   for (var i in settings){
     this[i] = settings[i];
   }
-
+  this.game = game;
   this.size = { x: settings.size.x, y: settings.size.y };
+};
 
-  this.draw = function(context){
-    context.fillStyle = settings.color;
-    context.fillRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-  };
+BlobSnot.prototype.draw = function(context){
+  context.fillStyle = settings.color;
+  context.fillRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
+};
 
-  this.collision = function(other, type){};
+BlobSnot.prototype.collision = function(other, type){};
 
-  this.uncollision = function(other, type){};
-}
+BlobSnot.prototype.uncollision = function(other, type){};
+
 
 Maths = function(){};
 
