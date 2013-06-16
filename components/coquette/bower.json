@@ -1,0 +1,9 @@
+{
+  "name": "coquette",
+  "version": "0.0.0",
+  "commit": "e163e7298a330e395985fc345d089a3b61d4f36a",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/maryrosecook/coquette.git"
+  }
+}

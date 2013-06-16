@@ -1,0 +1,9 @@
+{
+  "name": "confuzzz",
+  "version": "0.0.0",
+  "dependencies": {
+    "normalize-css": "~2.1.0",
+    "html5shiv": "~3.6.2",
+    "coquette": "latest"
+  }
+}
