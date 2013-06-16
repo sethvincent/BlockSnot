@@ -1,14 +1,17 @@
 var Game = function(canvas, width, height){
   this.coquette = new Coquette(this, canvas, width, height, '#fff');
+  this.Maths = new Maths();
 };
 
 Game.prototype.init = function(){
-    this.coquette.entities.create(Blob, { 
-      size: { x: 100, y: 100 },
-      pos: { x: randPosX(), y: randPosY() },
-      boundingBox: this.coquette.collider.RECTANGLE,
-      speed: 10,
-      color: '#efefef'   
+  var self = this;
+
+  this.coquette.entities.create(Blob, { 
+    size: { x: 100, y: 100 },
+    pos: { x: self.Maths.randPosX(), y: self.Maths.randPosY() },
+    boundingBox: this.coquette.collider.RECTANGLE,
+    speed: 10,
+    color: '#efefef'   
   });
 };
 
@@ -36,71 +39,70 @@ var Blob = function(game, settings){
   }
 
   this.game = game;
-  var c = this.game.coquette;
-
   this.size = { x: settings.size.x, y: settings.size.y };
+}
 
-  this.draw = function(context){
-    context.fillStyle = settings.color;
-    context.fillRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-  };
-
-  this.collision = function(other, type){
-
-  };
-
-  this.uncollision = function(other, type){
-
-  };
-
-  this.update = function(){
-      this.handleKeyboard();
-      this.handleBoundaries();
-    },
-
-  this.handleKeyboard = function(){
-      if (c.inputter.state(c.inputter.W)) {
-        this.pos.y -= this.speed;
-      }
-
-      if (c.inputter.state(c.inputter.S)) {
-        this.pos.y += this.speed;
-      }
-
-      if (c.inputter.state(c.inputter.A)) {
-        this.pos.x -= this.speed;
-      }
-
-      if (c.inputter.state(c.inputter.D)) {
-        this.pos.x += this.speed;
-      }
-
-      if (c.inputter.state(c.inputter.SHIFT)){
-        this.pos.x = randPosX();
-        this.pos.y = randPosY();
-      }
-    },
-
-    this.handleBoundaries = function(){
-      if (this.pos.y <= 0){
-        this.pos.y = 0;
-      }
-
-      if (this.pos.y >= c.renderer.height - this.size.y){
-        this.pos.y = c.renderer.height - this.size.y;
-      }
-
-      if (this.pos.x <= 0){
-        this.pos.x = 0;
-      }
-
-      if (this.pos.x >= c.renderer.width - this.size.x){
-        this.pos.x = c.renderer.width - this.size.x;
-      } 
-    }
+Blob.prototype.draw = function(context){
+  context.fillStyle = this.color;
+  context.fillRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
 };
 
-var BlobSnot = function(_, settings){
+Blob.prototype.collision = function(other, type){};
+
+Blob.prototype.uncollision = function(other, type){};
+
+Blob.prototype.update = function(){
+  this.handleKeyboard();
+  this.handleBoundaries();
+};
+
+Blob.prototype.handleKeyboard = function(){
+  var c = this.game.coquette;
+
+  if (c.inputter.state(c.inputter.W)) {
+    this.pos.y -= this.speed;
+  }
+
+  if (c.inputter.state(c.inputter.S)) {
+    this.pos.y += this.speed;
+  }
+
+  if (c.inputter.state(c.inputter.A)) {
+    this.pos.x -= this.speed;
+  }
+
+  if (c.inputter.state(c.inputter.D)) {
+    this.pos.x += this.speed;
+  }
+
+  if (c.inputter.state(c.inputter.SHIFT)){
+    this.pos.x = randPosX();
+    this.pos.y = randPosY();
+  }
+};
+
+  
+Blob.prototype.handleBoundaries = function(){
+  var c = this.game.coquette;
+
+  if (this.pos.y <= 0){
+    this.pos.y = 0;
+  }
+
+  if (this.pos.y >= c.renderer.height - this.size.y){
+    this.pos.y = c.renderer.height - this.size.y;
+  }
+
+  if (this.pos.x <= 0){
+    this.pos.x = 0;
+  }
+
+  if (this.pos.x >= c.renderer.width - this.size.x){
+    this.pos.x = c.renderer.width - this.size.x;
+  } 
+}
+
+var BlobSnot = function(game, settings){
   for (var i in settings){
     this[i] = settings[i];
   }
@@ -112,19 +114,18 @@ var BlobSnot = function(_, settings){
     context.fillRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
   };
 
-  this.collision = function(other, type){
-  };
+  this.collision = function(other, type){};
 
-  this.uncollision = function(other, type){
-
-  };
+  this.uncollision = function(other, type){};
 }
 
-function randPosX(){
+Maths = function(){};
+
+Maths.prototype.randPosX = function(){
   return Math.floor(Math.random() * (document.width - 0+1)) + 0;
 }
 
-function randPosY(){
+Maths.prototype.randPosY = function(){
   return Math.floor(Math.random() * (document.height - 0+1)) + 0;
 }
 
