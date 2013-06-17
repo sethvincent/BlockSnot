@@ -11,7 +11,7 @@ Game.prototype.init = function(){
     pos: { x: self.Maths.randPosX(), y: self.Maths.randPosY() },
     boundingBox: this.coquette.collider.RECTANGLE,
     speed: 10,
-    color: '#efefef'   
+    color: self.Maths.randColor()
   });
 };
 
@@ -35,7 +35,6 @@ Game.prototype.init = function(){
 var Blob = function(game, settings){
   for (var i in settings){
     this[i] = settings[i];
-    console.log(i)
   }
 
   this.game = game;
@@ -76,8 +75,10 @@ Blob.prototype.handleKeyboard = function(){
   }
 
   if (c.inputter.state(c.inputter.SHIFT)){
-    this.pos.x = randPosX();
-    this.pos.y = randPosY();
+    this.color = this.game.Maths.randColor();
+
+    this.pos.x = this.game.Maths.randPosX();
+    this.pos.y = this.game.Maths.randPosY();
   }
 };
 
@@ -111,7 +112,7 @@ var BlobSnot = function(game, settings){
 };
 
 BlobSnot.prototype.draw = function(context){
-  context.fillStyle = settings.color;
+  context.fillStyle = this.color;
   context.fillRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
 };
 
@@ -119,15 +120,28 @@ BlobSnot.prototype.collision = function(other, type){};
 
 BlobSnot.prototype.uncollision = function(other, type){};
 
-
+/* THE MATHS */
 Maths = function(){};
 
 Maths.prototype.randPosX = function(){
-  return Math.floor(Math.random() * (document.width - 0+1)) + 0;
+  return this.rand(0, document.width);
 }
 
 Maths.prototype.randPosY = function(){
-  return Math.floor(Math.random() * (document.height - 0+1)) + 0;
+  return this.rand(0, document.height);
+}
+ 
+Maths.prototype.randColor = function(){
+  var r = this.rand(0, 255);
+  var g = this.rand(0, 255);
+  var b = this.rand(0, 255);
+  var rgb = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+  console.log(rgb)
+  return rgb;
+}
+
+Maths.prototype.rand = function(min, max){
+  return Math.floor(Math.random() * (max - min+1)) + min;
 }
 
 window.addEventListener('load', function(){
