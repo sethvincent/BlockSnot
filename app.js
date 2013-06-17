@@ -77,8 +77,8 @@ Blob.prototype.handleKeyboard = function(){
   if (c.inputter.state(c.inputter.SHIFT)){
     this.color = this.game.Maths.randColor();
 
-    this.pos.x = this.game.Maths.randPosX();
-    this.pos.y = this.game.Maths.randPosY();
+    this.pos.x = this.game.Maths.rand(this.pos.x - 10, this.pos.x + 10);
+    this.pos.y = this.game.Maths.rand(this.pos.y - 10, this.pos.y + 10);
   }
 };
 
