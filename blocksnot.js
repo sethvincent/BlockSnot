@@ -12,6 +12,10 @@ var Game = function(canvas, width, height){
   this.title.style['color'] = this.Maths.randColor();
   this.titleOpacity = 1.0;
 
+  this.description = document.getElementById('description');
+  this.description.style['color'] = this.Maths.randColor();
+  this.descriptionOpacity = 1.0;
+
   this.screens = {};
   this.screens.gameOver = document.getElementById('game-over');
   this.screens.win = document.getElementById('win');
@@ -44,7 +48,7 @@ Game.prototype.update = function(tick){
     return;
   }
 
-  if ( this.jerksKilled === 30 ){
+  if ( this.jerksKilled === 30 && this.circleJerks === 0 ){
     this.screens.win.style['display'] = 'block';
     return;
   }
@@ -54,6 +58,11 @@ Game.prototype.update = function(tick){
     if (this.count % 25 === 0){
       this.titleOpacity = Math.round(this.titleOpacity * 10) / 10 - 0.1;
       this.title.style['opacity'] = this.titleOpacity;
+      
+
+      this.descriptionOpacity = Math.round(this.descriptionOpacity * 10) / 10 - 0.1;
+      this.description.style['opacity'] = this.descriptionOpacity;
+
 
       this.coquette.entities.create(Food, {
         size: { x: 16, y: 16 },
@@ -78,6 +87,7 @@ Game.prototype.draw = function(){
   gameOverTitle.style['color'] = this.Maths.randColor();
 
   this.title.style['color'] = this.Maths.randColor();
+  this.description.style['color'] = this.Maths.randColor();
 }
 
 
@@ -137,7 +147,7 @@ Block.prototype.update = function(){
     this.pos.y + this.randomPosAmount
   );
 
-  if ( this.foodEaten === 5 && this.game.circleJerks < 30 ){
+  if ( this.foodEaten === 5 && this.game.circleJerks + this.game.jerksKilled < 30 ){
     this.game.coquette.entities.create(CircleJerk, {
       size: { x: 16, y: 16 },
       pos: { 

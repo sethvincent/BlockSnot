@@ -47,13 +47,27 @@ h1#title {
   display: block;
   color: rgba(150, 244, 244, 1);
   font-weight: 100;
-  font-size: 10px;
+  font-size: 14px;
   width: 100%;
   text-align: center;
   position: fixed;
   top: 50%;
   text-transform: uppercase;
+  letter-spacing: 8px;
+}
+
+p#description {
+  display: block;
+  color: rgba(50, 50, 50, 1);
+  font-weight: 100;
+  font-size: 10px;
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  top: 54%;
+  text-transform: uppercase;
   letter-spacing: 5px;
+  margin: 0px;
 }
 
 canvas#game {
