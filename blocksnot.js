@@ -31,7 +31,7 @@ Game.prototype.init = function(){
 
   this.coquette.entities.create(Block, { 
     size: { x: 3, y: 3 },
-    pos: { x: document.width / 2, y: document.height / 2 - 20 },
+    pos: { x: window.innerWidth / 2, y: window.innerHeight / 2 - 20 },
     boundingBox: this.coquette.collider.RECTANGLE,
     color: self.Maths.randColor(),
     randomPosAmount: 3,
@@ -474,11 +474,11 @@ Maths.prototype.vToSyl = function(vec) { return $V([vec.x, vec.y || 0]); },
 Maths.prototype.vFromSyl = function(vec) { return { x: vec.e(1), y: vec.e(2) } },
 
 Maths.prototype.randPosX = function(){
-  return this.rand(0, document.width);
+  return this.rand(0, window.innerWidth);
 };
 
 Maths.prototype.randPosY = function(){
-  return this.rand(0, document.height);
+  return this.rand(0, window.innerWidth);
 };
  
 Maths.prototype.randColor = function(){
@@ -500,6 +500,6 @@ Maths.prototype.rand = function(min, max){
 */
 
 window.addEventListener('load', function(){
-  var game = new Game('game', document.width, document.height);
+  var game = new Game('game', window.innerWidth, window.innerHeight);
   game.init();
 });
